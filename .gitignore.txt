@@ -1,2 +1,5 @@
+.DS_Store
+*.egg
+*.egg-info
 Informap/platforms
 Informap/plugins
