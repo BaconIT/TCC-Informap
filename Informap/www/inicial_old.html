@@ -1,0 +1,110 @@
+﻿<!DOCTYPE html>
+<html>
+
+	<head>
+		
+		<title>InforMap - Início</title>
+		<meta charset = "utf-8" />
+		<link rel = "shortcut icon" href = "imagens/icone_logo.ico" />
+		<link rel = "stylesheet" type = "text/css" href = "css/materialize.min.css" />
+		<link rel = "stylesheet" type = "text/css" href = "css/estilo.css" />
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+		<script src="js/materialize.min.js"></script>
+		<script>
+			(function($){
+				$(function(){
+					$('.button-collapse').sideNav();
+				});
+			})(jQuery);
+		</script>
+
+		<style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        height: 100%;
+      }
+    </style>
+    <script type="text/javascript">
+    // This example enables Sign In by loading the Maps API with the signed_in
+    // parameter set to true. For example:
+    // https://maps.googleapis.com/maps/api/js?signed_in=true&callback=initMap		
+    	// onSuccess Callback
+    // This method accepts a Position object, which contains the
+    // current GPS coordinates
+    	function initMap(tituloponto, position) {
+    		if(position){
+    			var tituloponto = tituloponto;
+    			var latitude = position.coords.latitude;
+    			var longitude = position.coords.longitude;
+    			var myLatLng = {lat: latitude, lng: longitude};
+
+    			var map = new google.maps.Map(document.getElementById('map'), {
+    				zoom: 18,
+    				center: myLatLng
+            
+    			});
+
+    			var marker = new google.maps.Marker({
+    				position: myLatLng,
+    				map: map,
+    				title: tituloponto,
+
+    			});
+    		}
+    	}
+    </script>
+    <script type="text/javascript">
+    var onSuccess = function(position) {
+    	var tituloponto = "Você está aqui!";
+    	initMap(tituloponto, position);
+        /*alert('Latitude: '          + position.coords.latitude          + '\n' +
+              'Longitude: '         + position.coords.longitude         + '\n' +
+              'Altitude: '          + position.coords.altitude          + '\n' +
+              'Accuracy: '          + position.coords.accuracy          + '\n' +
+              'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
+              'Heading: '           + position.coords.heading           + '\n' +
+              'Speed: '             + position.coords.speed             + '\n' +
+              'Timestamp: '         + position.timestamp                + '\n');*/
+    };
+
+    // onError Callback receives a PositionError object
+    //
+    function onError(error) {
+        alert('code: '    + error.code    + '\n' +
+              'message: ' + error.message + '\n');
+    }
+    navigator.geolocation.getCurrentPosition(onSuccess, onError);
+    </script>
+		
+	</head>
+	
+	<body>
+	
+		<nav class = "fundo_menuInforMap" role = "navigation">
+			<div class = "nav-wrapper container">
+				<img class = "inforMap_logo_menu" src="imagens\icone_logo.ico" alt = "Logo InforMap"/>
+				<span id="menu-container" class="fundo_menuInforMap">
+					InforMap
+				</span>
+				<ul id="nav-mobile" class="side-nav" style="transform: translateX(-100%);">
+					<li><a href="#">Publicar evento</a></li>
+					<li><a href="#">Avaliar intituições e entidades</a></li>
+					<li><a href="#">Publicar evento</a></li>
+				</ul>
+				<a href="#" data-activates="nav-mobile" class="button-collapse">
+					<i class="material-icons">menu</i>
+				</a>
+			</div>
+		</nav>
+	
+		<div id="map"></div>
+	    <script async defer
+	        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC4mQ6qxJxvh3zuSfEILZtWs2mD0iB4tQM&signed_in=true&callback=initMap"></script>
+	</body>
+
+</html>

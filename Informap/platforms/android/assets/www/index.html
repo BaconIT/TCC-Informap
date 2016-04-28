@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>InforMap - Login</title>
+		<meta charset = "utf-8" />
+		<link rel = "shortcut icon" href = "imagens/icone_logo.ico" />
+		<link rel = "stylesheet" type = "text/css" href = "css/materialize.min.css" />
+		<link rel = "stylesheet" type = "text/css" href = "css/estilo.css" />
+		<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	</head>
+	
+	<body>
+		<div class="content">
+			<div class="row">
+				<div class="col s12">
+					<img class = "inforMap_logo" src="imagens\mk_2_logo.png" alt = "Logo InforMap"/>
+				
+					<span class="infor_texto">
+						Infor<span class="map_texto">Map</span>
+					</span>
+
+					<p class = "padrao_texto">Comece agora</p>
+					
+					<a id = "btnFace" href = "#"> 
+						<img class = "botao_loginFB" src="imagens/button_FB.png" alt = "Login Facebook"/>
+					</a>
+				</div>
+			</div>
+		</div>
+	</body>
+	<div id="fb-root"></div>
+	<script src="https://cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
+	<script type="text/javascript">
+		var ref = new Firebase("https://informap.firebaseio.com/");
+		var authData = ref.getAuth();
+		ref.unauth();
+		if(authData){
+			window.location = "mapa.html";
+		}
+		$("#btnFace").click(function(){
+			console.log("Authenticated user with uid:", authData);
+			if (!authData) {
+				facebookConnectPlugin.login(['public_info'], function(status) {
+					facebookConnectPlugin.getAccessToken(function(token) {
+						ref.authWithOAuthToken("facebook", token, function(error, authData) {
+			             	if (error) {
+			               		console.log('Firebase login failed!', error);
+			              	} else {
+			                	ref.child("users").child(authData.uid).set({
+				                    provider: authData.provider,
+				                    name: authData.facebook.displayName,
+				                    access_token: authData.facebook.accessToken,
+				                    fb_id: authData.facebook.id,
+				                    profile_img: authData.facebook.profileImageURL
+		                		});
+		                		window.location = "mapa.html";
+			              	}
+			            });
+					});
+				});
+		    	// ref.authWithOAuthPopup("facebook", function(error, authData) {
+		     //        if (error) {
+		     //            console.log("Login Failed!", error);
+		     //        } else {
+		     //            // console.log("Authenticated successfully with payload:", authData.facebook);
+		     //            ref.child("users").child(authData.uid).set({
+		     //                provider: authData.provider,
+		     //                name: authData.facebook.displayName,
+		     //                access_token: authData.facebook.accessToken,
+		     //                fb_id: authData.facebook.id,
+		     //                profile_img: authData.facebook.profileImageURL
+		     //            });
+		     //            window.location = "mapa.html";
+		     //        }
+		     //    });
+		    }else{
+		    	window.location = "mapa.html";
+		    }
+		});
+	</script>
+
+</html>

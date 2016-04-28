@@ -1,0 +1,33 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "phonegap-facebook-plugin": {
+            "APP_ID": "108045292931040",
+            "APP_NAME": "InforMap",
+            "PACKAGE_NAME": "com.informap.tcc"
+        },
+        "cordova-plugin-device-motion": {
+            "PACKAGE_NAME": "com.informap.tcc"
+        },
+        "cordova-plugin-device-orientation": {
+            "PACKAGE_NAME": "com.informap.tcc"
+        },
+        "cordova-plugin-geolocation": {
+            "PACKAGE_NAME": "com.informap.tcc"
+        },
+        "cordova-plugin-inappbrowser": {
+            "PACKAGE_NAME": "com.informap.tcc"
+        }
+    },
+    "dependent_plugins": {
+        "cordova-plugin-compat": {
+            "PACKAGE_NAME": "com.informap.tcc"
+        }
+    }
+}
